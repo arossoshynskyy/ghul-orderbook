@@ -6,12 +6,12 @@
 using std::string;
 
 
-class Book {
+class OrderBook {
     Tree *asks;
     Tree *bids;
 
     public:
-        explicit Book();
+        explicit OrderBook();
         void addBid(string, double, double);
         void addAsk(string, double, double);
         void setBidAmount(string, double);
