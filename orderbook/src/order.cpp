@@ -1,28 +1,31 @@
 #include "order.h"
 
 
-Order::Order(string id, double price, double amount) {
+Order::Order(string id, float price, float amount) {
     this->id = id;
     this->price = price;
     this->amount = amount;
+    next = nullptr;
+    prev = nullptr;
+    parent = nullptr;
 };
 
 string Order::getId() {
-    return this->id;
+    return id;
 }
 
-double Order::getPrice() {
-    return this->price;
+float Order::getPrice() {
+    return price;
 }
 
-double Order::getAmount() {
-    return this->amount;
+float Order::getAmount() {
+    return amount;
 }
 
-void Order::setAmount(double amount) {
+void Order::setAmount(float amount) {
     this->amount = amount;
 };
 
-void Order::addAmount(double amount) {
+void Order::addAmount(float amount) {
     this->amount += amount;
 };

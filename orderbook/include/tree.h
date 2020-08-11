@@ -13,7 +13,7 @@ using std::unordered_map;
 
 class Tree {
     Limit *root;
-    unordered_map<double, Limit*> limits;
+    unordered_map<float, Limit*> limits;
     unordered_map<string, Order*> orders;
 
     void insertLimit(Limit*);
@@ -26,13 +26,15 @@ class Tree {
     void updateBalance(Limit*);
 
     public:
-        void addOrder(string, double, double);
-        void setOrderAmount(string, double);
-        void addOrderAmount(string, double);
+        void addOrder(string, float, float);
+        void setOrderAmount(string, float);
+        void addOrderAmount(string, float);
         void removeOrder(string);
-        Limit* minLimit();
-        Limit* maxLimit();
+        bool hasOrder(string);
+        Limit* getMinLimit();
+        Limit* getMaxLimit();
         vector<Limit*> inorder();
+        ~Tree();
 };
 
 

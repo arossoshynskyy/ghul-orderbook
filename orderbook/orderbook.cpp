@@ -34,7 +34,7 @@ END: Cython Metadata */
 #else
 #define CYTHON_ABI "0_29_21"
 #define CYTHON_HEX_VERSION 0x001D15F0
-#define CYTHON_FUTURE_DIVISION 0
+#define CYTHON_FUTURE_DIVISION 1
 #include <stddef.h>
 #ifndef offsetof
   #define offsetof(type, member) ( (size_t) & ((type*)0) -> member )
@@ -664,10 +664,9 @@ typedef struct {PyObject **p; const char *s; const Py_ssize_t n; const char* enc
 
 #define __PYX_DEFAULT_STRING_ENCODING_IS_ASCII 0
 #define __PYX_DEFAULT_STRING_ENCODING_IS_UTF8 0
-#define __PYX_DEFAULT_STRING_ENCODING_IS_DEFAULT (PY_MAJOR_VERSION >= 3 && __PYX_DEFAULT_STRING_ENCODING_IS_UTF8)
-#define __PYX_DEFAULT_STRING_ENCODING ""
-#define __Pyx_PyObject_FromString __Pyx_PyBytes_FromString
-#define __Pyx_PyObject_FromStringAndSize __Pyx_PyBytes_FromStringAndSize
+#define __PYX_DEFAULT_STRING_ENCODING_IS_DEFAULT 1
+#define __Pyx_PyObject_FromString __Pyx_PyUnicode_FromString
+#define __Pyx_PyObject_FromStringAndSize __Pyx_PyUnicode_FromStringAndSize
 #define __Pyx_uchar_cast(c) ((unsigned char)c)
 #define __Pyx_long_cast(x) ((long)x)
 #define __Pyx_fits_Py_ssize_t(v, type, is_signed)  (\
@@ -866,16 +865,16 @@ static const char *__pyx_f[] = {
 /*--- Type declarations ---*/
 struct __pyx_obj_13ghulorderbook_OrderBook;
 
-/* "orderbook/orderbook.pyx":6
+/* "orderbook/orderbook.pyx":8
  * 
  * 
  * cdef class OrderBook:             # <<<<<<<<<<<<<<
- *     cdef CppOrderBook* order_book
+ *     cdef CppOrderBook order_book
  * 
  */
 struct __pyx_obj_13ghulorderbook_OrderBook {
   PyObject_HEAD
-  OrderBook *order_book;
+  OrderBook order_book;
 };
 
 
@@ -956,6 +955,9 @@ static PyObject *__Pyx_GetBuiltinName(PyObject *name);
 /* RaiseArgTupleInvalid.proto */
 static void __Pyx_RaiseArgtupleInvalid(const char* func_name, int exact,
     Py_ssize_t num_min, Py_ssize_t num_max, Py_ssize_t num_found);
+
+/* KeywordStringCheck.proto */
+static int __Pyx_CheckKeywordStrings(PyObject *kwdict, const char* function_name, int kw_allowed);
 
 /* RaiseDoubleKeywords.proto */
 static void __Pyx_RaiseDoubleKeywordsError(const char* func_name, PyObject* kw_name);
@@ -1091,6 +1093,9 @@ static void __pyx_insert_code_object(int code_line, PyCodeObject* code_object);
 static void __Pyx_AddTraceback(const char *funcname, int c_line,
                                int py_line, const char *filename);
 
+/* None.proto */
+#include <new>
+
 /* CppExceptionConversion.proto */
 #ifndef __Pyx_CppExn2PyErr
 #include <new>
@@ -1166,6 +1171,8 @@ static int __Pyx_InitStrings(__Pyx_StringTabEntry *t);
 
 /* Module declarations from 'libcpp.string' */
 
+/* Module declarations from 'libcpp' */
+
 /* Module declarations from 'orderbook.orderbook' */
 
 /* Module declarations from 'ghulorderbook' */
@@ -1177,7 +1184,7 @@ int __pyx_module_is_main_ghulorderbook = 0;
 
 /* Implementation of 'ghulorderbook' */
 static PyObject *__pyx_builtin_TypeError;
-static const char __pyx_k_id[] = "id";
+static const char __pyx_k_id[] = "id_";
 static const char __pyx_k_main[] = "__main__";
 static const char __pyx_k_name[] = "__name__";
 static const char __pyx_k_test[] = "__test__";
@@ -1192,7 +1199,7 @@ static const char __pyx_k_reduce_ex[] = "__reduce_ex__";
 static const char __pyx_k_reduce_cython[] = "__reduce_cython__";
 static const char __pyx_k_setstate_cython[] = "__setstate_cython__";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
-static const char __pyx_k_self_order_book_cannot_be_conver[] = "self.order_book cannot be converted to a Python object for pickling";
+static const char __pyx_k_no_default___reduce___due_to_non[] = "no default __reduce__ due to non-trivial __cinit__";
 static PyObject *__pyx_n_s_OrderBook;
 static PyObject *__pyx_n_s_TypeError;
 static PyObject *__pyx_n_s_amount;
@@ -1201,110 +1208,114 @@ static PyObject *__pyx_n_s_getstate;
 static PyObject *__pyx_n_s_id;
 static PyObject *__pyx_n_s_main;
 static PyObject *__pyx_n_s_name;
+static PyObject *__pyx_kp_s_no_default___reduce___due_to_non;
 static PyObject *__pyx_n_s_price;
 static PyObject *__pyx_n_s_reduce;
 static PyObject *__pyx_n_s_reduce_cython;
 static PyObject *__pyx_n_s_reduce_ex;
-static PyObject *__pyx_kp_s_self_order_book_cannot_be_conver;
 static PyObject *__pyx_n_s_setstate;
 static PyObject *__pyx_n_s_setstate_cython;
 static PyObject *__pyx_n_s_test;
-static PyObject *__pyx_pf_13ghulorderbook_9OrderBook___cinit(struct __pyx_obj_13ghulorderbook_OrderBook *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_13ghulorderbook_9OrderBook_2add_bid(struct __pyx_obj_13ghulorderbook_OrderBook *__pyx_v_self, std::string __pyx_v_id, double __pyx_v_price, double __pyx_v_amount); /* proto */
-static PyObject *__pyx_pf_13ghulorderbook_9OrderBook_4add_ask(struct __pyx_obj_13ghulorderbook_OrderBook *__pyx_v_self, std::string __pyx_v_id, double __pyx_v_price, double __pyx_v_amount); /* proto */
-static PyObject *__pyx_pf_13ghulorderbook_9OrderBook_6set_bid_amount(struct __pyx_obj_13ghulorderbook_OrderBook *__pyx_v_self, std::string __pyx_v_id, double __pyx_v_amount); /* proto */
-static PyObject *__pyx_pf_13ghulorderbook_9OrderBook_8set_ask_amount(struct __pyx_obj_13ghulorderbook_OrderBook *__pyx_v_self, std::string __pyx_v_id, double __pyx_v_amount); /* proto */
-static PyObject *__pyx_pf_13ghulorderbook_9OrderBook_10remove_bid(struct __pyx_obj_13ghulorderbook_OrderBook *__pyx_v_self, std::string __pyx_v_id); /* proto */
-static PyObject *__pyx_pf_13ghulorderbook_9OrderBook_12remove_ask(struct __pyx_obj_13ghulorderbook_OrderBook *__pyx_v_self, std::string __pyx_v_id); /* proto */
-static void __pyx_pf_13ghulorderbook_9OrderBook_14__dealloc__(struct __pyx_obj_13ghulorderbook_OrderBook *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_13ghulorderbook_9OrderBook_16__reduce_cython__(CYTHON_UNUSED struct __pyx_obj_13ghulorderbook_OrderBook *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_13ghulorderbook_9OrderBook_18__setstate_cython__(CYTHON_UNUSED struct __pyx_obj_13ghulorderbook_OrderBook *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v___pyx_state); /* proto */
+static int __pyx_pf_13ghulorderbook_9OrderBook___cinit__(struct __pyx_obj_13ghulorderbook_OrderBook *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_13ghulorderbook_9OrderBook_2add_bid(struct __pyx_obj_13ghulorderbook_OrderBook *__pyx_v_self, std::string __pyx_v_id_, float __pyx_v_price, float __pyx_v_amount); /* proto */
+static PyObject *__pyx_pf_13ghulorderbook_9OrderBook_4add_ask(struct __pyx_obj_13ghulorderbook_OrderBook *__pyx_v_self, std::string __pyx_v_id_, float __pyx_v_price, float __pyx_v_amount); /* proto */
+static PyObject *__pyx_pf_13ghulorderbook_9OrderBook_6set_bid_amount(struct __pyx_obj_13ghulorderbook_OrderBook *__pyx_v_self, std::string __pyx_v_id_, float __pyx_v_amount); /* proto */
+static PyObject *__pyx_pf_13ghulorderbook_9OrderBook_8set_ask_amount(struct __pyx_obj_13ghulorderbook_OrderBook *__pyx_v_self, std::string __pyx_v_id_, float __pyx_v_amount); /* proto */
+static PyObject *__pyx_pf_13ghulorderbook_9OrderBook_10remove_bid(struct __pyx_obj_13ghulorderbook_OrderBook *__pyx_v_self, std::string __pyx_v_id_); /* proto */
+static PyObject *__pyx_pf_13ghulorderbook_9OrderBook_12remove_ask(struct __pyx_obj_13ghulorderbook_OrderBook *__pyx_v_self, std::string __pyx_v_id_); /* proto */
+static PyObject *__pyx_pf_13ghulorderbook_9OrderBook_14has_bid(struct __pyx_obj_13ghulorderbook_OrderBook *__pyx_v_self, std::string __pyx_v_id_); /* proto */
+static PyObject *__pyx_pf_13ghulorderbook_9OrderBook_16has_ask(struct __pyx_obj_13ghulorderbook_OrderBook *__pyx_v_self, std::string __pyx_v_id_); /* proto */
+static PyObject *__pyx_pf_13ghulorderbook_9OrderBook_18get_highest_bid(struct __pyx_obj_13ghulorderbook_OrderBook *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_13ghulorderbook_9OrderBook_20get_lowest_ask(struct __pyx_obj_13ghulorderbook_OrderBook *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_13ghulorderbook_9OrderBook_22__reduce_cython__(CYTHON_UNUSED struct __pyx_obj_13ghulorderbook_OrderBook *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_13ghulorderbook_9OrderBook_24__setstate_cython__(CYTHON_UNUSED struct __pyx_obj_13ghulorderbook_OrderBook *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v___pyx_state); /* proto */
 static PyObject *__pyx_tp_new_13ghulorderbook_OrderBook(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tuple_;
 static PyObject *__pyx_tuple__2;
 /* Late includes */
 
-/* "orderbook/orderbook.pyx":9
- *     cdef CppOrderBook* order_book
+/* "orderbook/orderbook.pyx":11
+ *     cdef CppOrderBook order_book
  * 
- *     def __cinit(self):             # <<<<<<<<<<<<<<
- *         self.order_book = new CppOrderBook()
+ *     def __cinit__(self):             # <<<<<<<<<<<<<<
+ *         self.order_book = CppOrderBook()
  * 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_13ghulorderbook_9OrderBook_1__cinit(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_13ghulorderbook_9OrderBook___cinit[] = "OrderBook.__cinit(self)";
-static PyObject *__pyx_pw_13ghulorderbook_9OrderBook_1__cinit(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
-  PyObject *__pyx_r = 0;
+static int __pyx_pw_13ghulorderbook_9OrderBook_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static int __pyx_pw_13ghulorderbook_9OrderBook_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  int __pyx_r;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("__cinit (wrapper)", 0);
-  __pyx_r = __pyx_pf_13ghulorderbook_9OrderBook___cinit(((struct __pyx_obj_13ghulorderbook_OrderBook *)__pyx_v_self));
+  __Pyx_RefNannySetupContext("__cinit__ (wrapper)", 0);
+  if (unlikely(PyTuple_GET_SIZE(__pyx_args) > 0)) {
+    __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 0, 0, PyTuple_GET_SIZE(__pyx_args)); return -1;}
+  if (unlikely(__pyx_kwds) && unlikely(PyDict_Size(__pyx_kwds) > 0) && unlikely(!__Pyx_CheckKeywordStrings(__pyx_kwds, "__cinit__", 0))) return -1;
+  __pyx_r = __pyx_pf_13ghulorderbook_9OrderBook___cinit__(((struct __pyx_obj_13ghulorderbook_OrderBook *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_13ghulorderbook_9OrderBook___cinit(struct __pyx_obj_13ghulorderbook_OrderBook *__pyx_v_self) {
-  PyObject *__pyx_r = NULL;
+static int __pyx_pf_13ghulorderbook_9OrderBook___cinit__(struct __pyx_obj_13ghulorderbook_OrderBook *__pyx_v_self) {
+  int __pyx_r;
   __Pyx_RefNannyDeclarations
-  OrderBook *__pyx_t_1;
+  OrderBook __pyx_t_1;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("__cinit", 0);
+  __Pyx_RefNannySetupContext("__cinit__", 0);
 
-  /* "orderbook/orderbook.pyx":10
+  /* "orderbook/orderbook.pyx":12
  * 
- *     def __cinit(self):
- *         self.order_book = new CppOrderBook()             # <<<<<<<<<<<<<<
+ *     def __cinit__(self):
+ *         self.order_book = CppOrderBook()             # <<<<<<<<<<<<<<
  * 
- *     def add_bid(self, string id, double price, double amount):
+ *     def add_bid(self, string id_, float price, float amount):
  */
   try {
-    __pyx_t_1 = new OrderBook();
+    __pyx_t_1 = OrderBook();
   } catch(...) {
     __Pyx_CppExn2PyErr();
-    __PYX_ERR(1, 10, __pyx_L1_error)
+    __PYX_ERR(1, 12, __pyx_L1_error)
   }
   __pyx_v_self->order_book = __pyx_t_1;
 
-  /* "orderbook/orderbook.pyx":9
- *     cdef CppOrderBook* order_book
+  /* "orderbook/orderbook.pyx":11
+ *     cdef CppOrderBook order_book
  * 
- *     def __cinit(self):             # <<<<<<<<<<<<<<
- *         self.order_book = new CppOrderBook()
+ *     def __cinit__(self):             # <<<<<<<<<<<<<<
+ *         self.order_book = CppOrderBook()
  * 
  */
 
   /* function exit code */
-  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
+  __pyx_r = 0;
   goto __pyx_L0;
   __pyx_L1_error:;
-  __Pyx_AddTraceback("ghulorderbook.OrderBook.__cinit", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
+  __Pyx_AddTraceback("ghulorderbook.OrderBook.__cinit__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = -1;
   __pyx_L0:;
-  __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-/* "orderbook/orderbook.pyx":12
- *         self.order_book = new CppOrderBook()
+/* "orderbook/orderbook.pyx":14
+ *         self.order_book = CppOrderBook()
  * 
- *     def add_bid(self, string id, double price, double amount):             # <<<<<<<<<<<<<<
- *         self.order_book.addBid(id, price, amount)
+ *     def add_bid(self, string id_, float price, float amount):             # <<<<<<<<<<<<<<
+ *         self.order_book.addBid(id_, price, amount)
  * 
  */
 
 /* Python wrapper */
 static PyObject *__pyx_pw_13ghulorderbook_9OrderBook_3add_bid(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_13ghulorderbook_9OrderBook_2add_bid[] = "OrderBook.add_bid(self, string id, double price, double amount)";
+static char __pyx_doc_13ghulorderbook_9OrderBook_2add_bid[] = "OrderBook.add_bid(self, string id_, float price, float amount)";
 static PyObject *__pyx_pw_13ghulorderbook_9OrderBook_3add_bid(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
-  std::string __pyx_v_id;
-  double __pyx_v_price;
-  double __pyx_v_amount;
+  std::string __pyx_v_id_;
+  float __pyx_v_price;
+  float __pyx_v_amount;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -1336,17 +1347,17 @@ static PyObject *__pyx_pw_13ghulorderbook_9OrderBook_3add_bid(PyObject *__pyx_v_
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_price)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("add_bid", 1, 3, 3, 1); __PYX_ERR(1, 12, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("add_bid", 1, 3, 3, 1); __PYX_ERR(1, 14, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_amount)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("add_bid", 1, 3, 3, 2); __PYX_ERR(1, 12, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("add_bid", 1, 3, 3, 2); __PYX_ERR(1, 14, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "add_bid") < 0)) __PYX_ERR(1, 12, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "add_bid") < 0)) __PYX_ERR(1, 14, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 3) {
       goto __pyx_L5_argtuple_error;
@@ -1355,44 +1366,44 @@ static PyObject *__pyx_pw_13ghulorderbook_9OrderBook_3add_bid(PyObject *__pyx_v_
       values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
       values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
     }
-    __pyx_v_id = __pyx_convert_string_from_py_std__in_string(values[0]); if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 12, __pyx_L3_error)
-    __pyx_v_price = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_price == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 12, __pyx_L3_error)
-    __pyx_v_amount = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_amount == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 12, __pyx_L3_error)
+    __pyx_v_id_ = __pyx_convert_string_from_py_std__in_string(values[0]); if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 14, __pyx_L3_error)
+    __pyx_v_price = __pyx_PyFloat_AsFloat(values[1]); if (unlikely((__pyx_v_price == (float)-1) && PyErr_Occurred())) __PYX_ERR(1, 14, __pyx_L3_error)
+    __pyx_v_amount = __pyx_PyFloat_AsFloat(values[2]); if (unlikely((__pyx_v_amount == (float)-1) && PyErr_Occurred())) __PYX_ERR(1, 14, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("add_bid", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(1, 12, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("add_bid", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(1, 14, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("ghulorderbook.OrderBook.add_bid", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_13ghulorderbook_9OrderBook_2add_bid(((struct __pyx_obj_13ghulorderbook_OrderBook *)__pyx_v_self), __pyx_v_id, __pyx_v_price, __pyx_v_amount);
+  __pyx_r = __pyx_pf_13ghulorderbook_9OrderBook_2add_bid(((struct __pyx_obj_13ghulorderbook_OrderBook *)__pyx_v_self), __pyx_v_id_, __pyx_v_price, __pyx_v_amount);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_13ghulorderbook_9OrderBook_2add_bid(struct __pyx_obj_13ghulorderbook_OrderBook *__pyx_v_self, std::string __pyx_v_id, double __pyx_v_price, double __pyx_v_amount) {
+static PyObject *__pyx_pf_13ghulorderbook_9OrderBook_2add_bid(struct __pyx_obj_13ghulorderbook_OrderBook *__pyx_v_self, std::string __pyx_v_id_, float __pyx_v_price, float __pyx_v_amount) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("add_bid", 0);
 
-  /* "orderbook/orderbook.pyx":13
+  /* "orderbook/orderbook.pyx":15
  * 
- *     def add_bid(self, string id, double price, double amount):
- *         self.order_book.addBid(id, price, amount)             # <<<<<<<<<<<<<<
+ *     def add_bid(self, string id_, float price, float amount):
+ *         self.order_book.addBid(id_, price, amount)             # <<<<<<<<<<<<<<
  * 
- *     def add_ask(self, string id, double price, double amount):
+ *     def add_ask(self, string id_, float price, float amount):
  */
-  __pyx_v_self->order_book->addBid(__pyx_v_id, __pyx_v_price, __pyx_v_amount);
+  __pyx_v_self->order_book.addBid(__pyx_v_id_, __pyx_v_price, __pyx_v_amount);
 
-  /* "orderbook/orderbook.pyx":12
- *         self.order_book = new CppOrderBook()
+  /* "orderbook/orderbook.pyx":14
+ *         self.order_book = CppOrderBook()
  * 
- *     def add_bid(self, string id, double price, double amount):             # <<<<<<<<<<<<<<
- *         self.order_book.addBid(id, price, amount)
+ *     def add_bid(self, string id_, float price, float amount):             # <<<<<<<<<<<<<<
+ *         self.order_book.addBid(id_, price, amount)
  * 
  */
 
@@ -1403,21 +1414,21 @@ static PyObject *__pyx_pf_13ghulorderbook_9OrderBook_2add_bid(struct __pyx_obj_1
   return __pyx_r;
 }
 
-/* "orderbook/orderbook.pyx":15
- *         self.order_book.addBid(id, price, amount)
+/* "orderbook/orderbook.pyx":17
+ *         self.order_book.addBid(id_, price, amount)
  * 
- *     def add_ask(self, string id, double price, double amount):             # <<<<<<<<<<<<<<
- *         self.order_book.addAsk(id, price, amount)
+ *     def add_ask(self, string id_, float price, float amount):             # <<<<<<<<<<<<<<
+ *         self.order_book.addAsk(id_, price, amount)
  * 
  */
 
 /* Python wrapper */
 static PyObject *__pyx_pw_13ghulorderbook_9OrderBook_5add_ask(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_13ghulorderbook_9OrderBook_4add_ask[] = "OrderBook.add_ask(self, string id, double price, double amount)";
+static char __pyx_doc_13ghulorderbook_9OrderBook_4add_ask[] = "OrderBook.add_ask(self, string id_, float price, float amount)";
 static PyObject *__pyx_pw_13ghulorderbook_9OrderBook_5add_ask(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
-  std::string __pyx_v_id;
-  double __pyx_v_price;
-  double __pyx_v_amount;
+  std::string __pyx_v_id_;
+  float __pyx_v_price;
+  float __pyx_v_amount;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -1449,17 +1460,17 @@ static PyObject *__pyx_pw_13ghulorderbook_9OrderBook_5add_ask(PyObject *__pyx_v_
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_price)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("add_ask", 1, 3, 3, 1); __PYX_ERR(1, 15, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("add_ask", 1, 3, 3, 1); __PYX_ERR(1, 17, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_amount)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("add_ask", 1, 3, 3, 2); __PYX_ERR(1, 15, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("add_ask", 1, 3, 3, 2); __PYX_ERR(1, 17, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "add_ask") < 0)) __PYX_ERR(1, 15, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "add_ask") < 0)) __PYX_ERR(1, 17, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 3) {
       goto __pyx_L5_argtuple_error;
@@ -1468,44 +1479,44 @@ static PyObject *__pyx_pw_13ghulorderbook_9OrderBook_5add_ask(PyObject *__pyx_v_
       values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
       values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
     }
-    __pyx_v_id = __pyx_convert_string_from_py_std__in_string(values[0]); if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 15, __pyx_L3_error)
-    __pyx_v_price = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_price == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 15, __pyx_L3_error)
-    __pyx_v_amount = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_amount == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 15, __pyx_L3_error)
+    __pyx_v_id_ = __pyx_convert_string_from_py_std__in_string(values[0]); if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 17, __pyx_L3_error)
+    __pyx_v_price = __pyx_PyFloat_AsFloat(values[1]); if (unlikely((__pyx_v_price == (float)-1) && PyErr_Occurred())) __PYX_ERR(1, 17, __pyx_L3_error)
+    __pyx_v_amount = __pyx_PyFloat_AsFloat(values[2]); if (unlikely((__pyx_v_amount == (float)-1) && PyErr_Occurred())) __PYX_ERR(1, 17, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("add_ask", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(1, 15, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("add_ask", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(1, 17, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("ghulorderbook.OrderBook.add_ask", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_13ghulorderbook_9OrderBook_4add_ask(((struct __pyx_obj_13ghulorderbook_OrderBook *)__pyx_v_self), __pyx_v_id, __pyx_v_price, __pyx_v_amount);
+  __pyx_r = __pyx_pf_13ghulorderbook_9OrderBook_4add_ask(((struct __pyx_obj_13ghulorderbook_OrderBook *)__pyx_v_self), __pyx_v_id_, __pyx_v_price, __pyx_v_amount);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_13ghulorderbook_9OrderBook_4add_ask(struct __pyx_obj_13ghulorderbook_OrderBook *__pyx_v_self, std::string __pyx_v_id, double __pyx_v_price, double __pyx_v_amount) {
+static PyObject *__pyx_pf_13ghulorderbook_9OrderBook_4add_ask(struct __pyx_obj_13ghulorderbook_OrderBook *__pyx_v_self, std::string __pyx_v_id_, float __pyx_v_price, float __pyx_v_amount) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("add_ask", 0);
 
-  /* "orderbook/orderbook.pyx":16
+  /* "orderbook/orderbook.pyx":18
  * 
- *     def add_ask(self, string id, double price, double amount):
- *         self.order_book.addAsk(id, price, amount)             # <<<<<<<<<<<<<<
+ *     def add_ask(self, string id_, float price, float amount):
+ *         self.order_book.addAsk(id_, price, amount)             # <<<<<<<<<<<<<<
  * 
- *     def set_bid_amount(self, string id, double amount):
+ *     def set_bid_amount(self, string id_, float amount):
  */
-  __pyx_v_self->order_book->addAsk(__pyx_v_id, __pyx_v_price, __pyx_v_amount);
+  __pyx_v_self->order_book.addAsk(__pyx_v_id_, __pyx_v_price, __pyx_v_amount);
 
-  /* "orderbook/orderbook.pyx":15
- *         self.order_book.addBid(id, price, amount)
+  /* "orderbook/orderbook.pyx":17
+ *         self.order_book.addBid(id_, price, amount)
  * 
- *     def add_ask(self, string id, double price, double amount):             # <<<<<<<<<<<<<<
- *         self.order_book.addAsk(id, price, amount)
+ *     def add_ask(self, string id_, float price, float amount):             # <<<<<<<<<<<<<<
+ *         self.order_book.addAsk(id_, price, amount)
  * 
  */
 
@@ -1516,20 +1527,20 @@ static PyObject *__pyx_pf_13ghulorderbook_9OrderBook_4add_ask(struct __pyx_obj_1
   return __pyx_r;
 }
 
-/* "orderbook/orderbook.pyx":18
- *         self.order_book.addAsk(id, price, amount)
+/* "orderbook/orderbook.pyx":20
+ *         self.order_book.addAsk(id_, price, amount)
  * 
- *     def set_bid_amount(self, string id, double amount):             # <<<<<<<<<<<<<<
- *         self.order_book.setBidAmount(id, amount)
+ *     def set_bid_amount(self, string id_, float amount):             # <<<<<<<<<<<<<<
+ *         self.order_book.setBidAmount(id_, amount)
  * 
  */
 
 /* Python wrapper */
 static PyObject *__pyx_pw_13ghulorderbook_9OrderBook_7set_bid_amount(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_13ghulorderbook_9OrderBook_6set_bid_amount[] = "OrderBook.set_bid_amount(self, string id, double amount)";
+static char __pyx_doc_13ghulorderbook_9OrderBook_6set_bid_amount[] = "OrderBook.set_bid_amount(self, string id_, float amount)";
 static PyObject *__pyx_pw_13ghulorderbook_9OrderBook_7set_bid_amount(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
-  std::string __pyx_v_id;
-  double __pyx_v_amount;
+  std::string __pyx_v_id_;
+  float __pyx_v_amount;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -1559,11 +1570,11 @@ static PyObject *__pyx_pw_13ghulorderbook_9OrderBook_7set_bid_amount(PyObject *_
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_amount)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("set_bid_amount", 1, 2, 2, 1); __PYX_ERR(1, 18, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("set_bid_amount", 1, 2, 2, 1); __PYX_ERR(1, 20, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "set_bid_amount") < 0)) __PYX_ERR(1, 18, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "set_bid_amount") < 0)) __PYX_ERR(1, 20, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -1571,43 +1582,43 @@ static PyObject *__pyx_pw_13ghulorderbook_9OrderBook_7set_bid_amount(PyObject *_
       values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
       values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
     }
-    __pyx_v_id = __pyx_convert_string_from_py_std__in_string(values[0]); if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 18, __pyx_L3_error)
-    __pyx_v_amount = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_amount == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 18, __pyx_L3_error)
+    __pyx_v_id_ = __pyx_convert_string_from_py_std__in_string(values[0]); if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 20, __pyx_L3_error)
+    __pyx_v_amount = __pyx_PyFloat_AsFloat(values[1]); if (unlikely((__pyx_v_amount == (float)-1) && PyErr_Occurred())) __PYX_ERR(1, 20, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("set_bid_amount", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(1, 18, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("set_bid_amount", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(1, 20, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("ghulorderbook.OrderBook.set_bid_amount", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_13ghulorderbook_9OrderBook_6set_bid_amount(((struct __pyx_obj_13ghulorderbook_OrderBook *)__pyx_v_self), __pyx_v_id, __pyx_v_amount);
+  __pyx_r = __pyx_pf_13ghulorderbook_9OrderBook_6set_bid_amount(((struct __pyx_obj_13ghulorderbook_OrderBook *)__pyx_v_self), __pyx_v_id_, __pyx_v_amount);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_13ghulorderbook_9OrderBook_6set_bid_amount(struct __pyx_obj_13ghulorderbook_OrderBook *__pyx_v_self, std::string __pyx_v_id, double __pyx_v_amount) {
+static PyObject *__pyx_pf_13ghulorderbook_9OrderBook_6set_bid_amount(struct __pyx_obj_13ghulorderbook_OrderBook *__pyx_v_self, std::string __pyx_v_id_, float __pyx_v_amount) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("set_bid_amount", 0);
 
-  /* "orderbook/orderbook.pyx":19
+  /* "orderbook/orderbook.pyx":21
  * 
- *     def set_bid_amount(self, string id, double amount):
- *         self.order_book.setBidAmount(id, amount)             # <<<<<<<<<<<<<<
+ *     def set_bid_amount(self, string id_, float amount):
+ *         self.order_book.setBidAmount(id_, amount)             # <<<<<<<<<<<<<<
  * 
- *     def set_ask_amount(self, string id, double amount):
+ *     def set_ask_amount(self, string id_, float amount):
  */
-  __pyx_v_self->order_book->setBidAmount(__pyx_v_id, __pyx_v_amount);
+  __pyx_v_self->order_book.setBidAmount(__pyx_v_id_, __pyx_v_amount);
 
-  /* "orderbook/orderbook.pyx":18
- *         self.order_book.addAsk(id, price, amount)
+  /* "orderbook/orderbook.pyx":20
+ *         self.order_book.addAsk(id_, price, amount)
  * 
- *     def set_bid_amount(self, string id, double amount):             # <<<<<<<<<<<<<<
- *         self.order_book.setBidAmount(id, amount)
+ *     def set_bid_amount(self, string id_, float amount):             # <<<<<<<<<<<<<<
+ *         self.order_book.setBidAmount(id_, amount)
  * 
  */
 
@@ -1618,20 +1629,20 @@ static PyObject *__pyx_pf_13ghulorderbook_9OrderBook_6set_bid_amount(struct __py
   return __pyx_r;
 }
 
-/* "orderbook/orderbook.pyx":21
- *         self.order_book.setBidAmount(id, amount)
+/* "orderbook/orderbook.pyx":23
+ *         self.order_book.setBidAmount(id_, amount)
  * 
- *     def set_ask_amount(self, string id, double amount):             # <<<<<<<<<<<<<<
- *         self.order_book.setAskAmount(id, amount)
+ *     def set_ask_amount(self, string id_, float amount):             # <<<<<<<<<<<<<<
+ *         self.order_book.setAskAmount(id_, amount)
  * 
  */
 
 /* Python wrapper */
 static PyObject *__pyx_pw_13ghulorderbook_9OrderBook_9set_ask_amount(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_13ghulorderbook_9OrderBook_8set_ask_amount[] = "OrderBook.set_ask_amount(self, string id, double amount)";
+static char __pyx_doc_13ghulorderbook_9OrderBook_8set_ask_amount[] = "OrderBook.set_ask_amount(self, string id_, float amount)";
 static PyObject *__pyx_pw_13ghulorderbook_9OrderBook_9set_ask_amount(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
-  std::string __pyx_v_id;
-  double __pyx_v_amount;
+  std::string __pyx_v_id_;
+  float __pyx_v_amount;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -1661,11 +1672,11 @@ static PyObject *__pyx_pw_13ghulorderbook_9OrderBook_9set_ask_amount(PyObject *_
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_amount)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("set_ask_amount", 1, 2, 2, 1); __PYX_ERR(1, 21, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("set_ask_amount", 1, 2, 2, 1); __PYX_ERR(1, 23, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "set_ask_amount") < 0)) __PYX_ERR(1, 21, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "set_ask_amount") < 0)) __PYX_ERR(1, 23, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -1673,43 +1684,43 @@ static PyObject *__pyx_pw_13ghulorderbook_9OrderBook_9set_ask_amount(PyObject *_
       values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
       values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
     }
-    __pyx_v_id = __pyx_convert_string_from_py_std__in_string(values[0]); if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 21, __pyx_L3_error)
-    __pyx_v_amount = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_amount == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 21, __pyx_L3_error)
+    __pyx_v_id_ = __pyx_convert_string_from_py_std__in_string(values[0]); if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 23, __pyx_L3_error)
+    __pyx_v_amount = __pyx_PyFloat_AsFloat(values[1]); if (unlikely((__pyx_v_amount == (float)-1) && PyErr_Occurred())) __PYX_ERR(1, 23, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("set_ask_amount", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(1, 21, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("set_ask_amount", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(1, 23, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("ghulorderbook.OrderBook.set_ask_amount", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_13ghulorderbook_9OrderBook_8set_ask_amount(((struct __pyx_obj_13ghulorderbook_OrderBook *)__pyx_v_self), __pyx_v_id, __pyx_v_amount);
+  __pyx_r = __pyx_pf_13ghulorderbook_9OrderBook_8set_ask_amount(((struct __pyx_obj_13ghulorderbook_OrderBook *)__pyx_v_self), __pyx_v_id_, __pyx_v_amount);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_13ghulorderbook_9OrderBook_8set_ask_amount(struct __pyx_obj_13ghulorderbook_OrderBook *__pyx_v_self, std::string __pyx_v_id, double __pyx_v_amount) {
+static PyObject *__pyx_pf_13ghulorderbook_9OrderBook_8set_ask_amount(struct __pyx_obj_13ghulorderbook_OrderBook *__pyx_v_self, std::string __pyx_v_id_, float __pyx_v_amount) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("set_ask_amount", 0);
 
-  /* "orderbook/orderbook.pyx":22
+  /* "orderbook/orderbook.pyx":24
  * 
- *     def set_ask_amount(self, string id, double amount):
- *         self.order_book.setAskAmount(id, amount)             # <<<<<<<<<<<<<<
+ *     def set_ask_amount(self, string id_, float amount):
+ *         self.order_book.setAskAmount(id_, amount)             # <<<<<<<<<<<<<<
  * 
- *     def remove_bid(self, string id):
+ *     def remove_bid(self, string id_):
  */
-  __pyx_v_self->order_book->setAskAmount(__pyx_v_id, __pyx_v_amount);
+  __pyx_v_self->order_book.setAskAmount(__pyx_v_id_, __pyx_v_amount);
 
-  /* "orderbook/orderbook.pyx":21
- *         self.order_book.setBidAmount(id, amount)
+  /* "orderbook/orderbook.pyx":23
+ *         self.order_book.setBidAmount(id_, amount)
  * 
- *     def set_ask_amount(self, string id, double amount):             # <<<<<<<<<<<<<<
- *         self.order_book.setAskAmount(id, amount)
+ *     def set_ask_amount(self, string id_, float amount):             # <<<<<<<<<<<<<<
+ *         self.order_book.setAskAmount(id_, amount)
  * 
  */
 
@@ -1720,27 +1731,27 @@ static PyObject *__pyx_pf_13ghulorderbook_9OrderBook_8set_ask_amount(struct __py
   return __pyx_r;
 }
 
-/* "orderbook/orderbook.pyx":24
- *         self.order_book.setAskAmount(id, amount)
+/* "orderbook/orderbook.pyx":26
+ *         self.order_book.setAskAmount(id_, amount)
  * 
- *     def remove_bid(self, string id):             # <<<<<<<<<<<<<<
- *         self.order_book.removeBid(id)
+ *     def remove_bid(self, string id_):             # <<<<<<<<<<<<<<
+ *         self.order_book.removeBid(id_)
  * 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_13ghulorderbook_9OrderBook_11remove_bid(PyObject *__pyx_v_self, PyObject *__pyx_arg_id); /*proto*/
-static char __pyx_doc_13ghulorderbook_9OrderBook_10remove_bid[] = "OrderBook.remove_bid(self, string id)";
-static PyObject *__pyx_pw_13ghulorderbook_9OrderBook_11remove_bid(PyObject *__pyx_v_self, PyObject *__pyx_arg_id) {
-  std::string __pyx_v_id;
+static PyObject *__pyx_pw_13ghulorderbook_9OrderBook_11remove_bid(PyObject *__pyx_v_self, PyObject *__pyx_arg_id_); /*proto*/
+static char __pyx_doc_13ghulorderbook_9OrderBook_10remove_bid[] = "OrderBook.remove_bid(self, string id_)";
+static PyObject *__pyx_pw_13ghulorderbook_9OrderBook_11remove_bid(PyObject *__pyx_v_self, PyObject *__pyx_arg_id_) {
+  std::string __pyx_v_id_;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("remove_bid (wrapper)", 0);
-  assert(__pyx_arg_id); {
-    __pyx_v_id = __pyx_convert_string_from_py_std__in_string(__pyx_arg_id); if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 24, __pyx_L3_error)
+  assert(__pyx_arg_id_); {
+    __pyx_v_id_ = __pyx_convert_string_from_py_std__in_string(__pyx_arg_id_); if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 26, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -1748,32 +1759,32 @@ static PyObject *__pyx_pw_13ghulorderbook_9OrderBook_11remove_bid(PyObject *__py
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_13ghulorderbook_9OrderBook_10remove_bid(((struct __pyx_obj_13ghulorderbook_OrderBook *)__pyx_v_self), ((std::string)__pyx_v_id));
+  __pyx_r = __pyx_pf_13ghulorderbook_9OrderBook_10remove_bid(((struct __pyx_obj_13ghulorderbook_OrderBook *)__pyx_v_self), ((std::string)__pyx_v_id_));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_13ghulorderbook_9OrderBook_10remove_bid(struct __pyx_obj_13ghulorderbook_OrderBook *__pyx_v_self, std::string __pyx_v_id) {
+static PyObject *__pyx_pf_13ghulorderbook_9OrderBook_10remove_bid(struct __pyx_obj_13ghulorderbook_OrderBook *__pyx_v_self, std::string __pyx_v_id_) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("remove_bid", 0);
 
-  /* "orderbook/orderbook.pyx":25
+  /* "orderbook/orderbook.pyx":27
  * 
- *     def remove_bid(self, string id):
- *         self.order_book.removeBid(id)             # <<<<<<<<<<<<<<
+ *     def remove_bid(self, string id_):
+ *         self.order_book.removeBid(id_)             # <<<<<<<<<<<<<<
  * 
- *     def remove_ask(self, string id):
+ *     def remove_ask(self, string id_):
  */
-  __pyx_v_self->order_book->removeBid(__pyx_v_id);
+  __pyx_v_self->order_book.removeBid(__pyx_v_id_);
 
-  /* "orderbook/orderbook.pyx":24
- *         self.order_book.setAskAmount(id, amount)
+  /* "orderbook/orderbook.pyx":26
+ *         self.order_book.setAskAmount(id_, amount)
  * 
- *     def remove_bid(self, string id):             # <<<<<<<<<<<<<<
- *         self.order_book.removeBid(id)
+ *     def remove_bid(self, string id_):             # <<<<<<<<<<<<<<
+ *         self.order_book.removeBid(id_)
  * 
  */
 
@@ -1784,27 +1795,27 @@ static PyObject *__pyx_pf_13ghulorderbook_9OrderBook_10remove_bid(struct __pyx_o
   return __pyx_r;
 }
 
-/* "orderbook/orderbook.pyx":27
- *         self.order_book.removeBid(id)
+/* "orderbook/orderbook.pyx":29
+ *         self.order_book.removeBid(id_)
  * 
- *     def remove_ask(self, string id):             # <<<<<<<<<<<<<<
- *         self.order_book.removeAsk(id)
+ *     def remove_ask(self, string id_):             # <<<<<<<<<<<<<<
+ *         self.order_book.removeAsk(id_)
  * 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_13ghulorderbook_9OrderBook_13remove_ask(PyObject *__pyx_v_self, PyObject *__pyx_arg_id); /*proto*/
-static char __pyx_doc_13ghulorderbook_9OrderBook_12remove_ask[] = "OrderBook.remove_ask(self, string id)";
-static PyObject *__pyx_pw_13ghulorderbook_9OrderBook_13remove_ask(PyObject *__pyx_v_self, PyObject *__pyx_arg_id) {
-  std::string __pyx_v_id;
+static PyObject *__pyx_pw_13ghulorderbook_9OrderBook_13remove_ask(PyObject *__pyx_v_self, PyObject *__pyx_arg_id_); /*proto*/
+static char __pyx_doc_13ghulorderbook_9OrderBook_12remove_ask[] = "OrderBook.remove_ask(self, string id_)";
+static PyObject *__pyx_pw_13ghulorderbook_9OrderBook_13remove_ask(PyObject *__pyx_v_self, PyObject *__pyx_arg_id_) {
+  std::string __pyx_v_id_;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("remove_ask (wrapper)", 0);
-  assert(__pyx_arg_id); {
-    __pyx_v_id = __pyx_convert_string_from_py_std__in_string(__pyx_arg_id); if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 27, __pyx_L3_error)
+  assert(__pyx_arg_id_); {
+    __pyx_v_id_ = __pyx_convert_string_from_py_std__in_string(__pyx_arg_id_); if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 29, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -1812,32 +1823,32 @@ static PyObject *__pyx_pw_13ghulorderbook_9OrderBook_13remove_ask(PyObject *__py
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_13ghulorderbook_9OrderBook_12remove_ask(((struct __pyx_obj_13ghulorderbook_OrderBook *)__pyx_v_self), ((std::string)__pyx_v_id));
+  __pyx_r = __pyx_pf_13ghulorderbook_9OrderBook_12remove_ask(((struct __pyx_obj_13ghulorderbook_OrderBook *)__pyx_v_self), ((std::string)__pyx_v_id_));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_13ghulorderbook_9OrderBook_12remove_ask(struct __pyx_obj_13ghulorderbook_OrderBook *__pyx_v_self, std::string __pyx_v_id) {
+static PyObject *__pyx_pf_13ghulorderbook_9OrderBook_12remove_ask(struct __pyx_obj_13ghulorderbook_OrderBook *__pyx_v_self, std::string __pyx_v_id_) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("remove_ask", 0);
 
-  /* "orderbook/orderbook.pyx":28
+  /* "orderbook/orderbook.pyx":30
  * 
- *     def remove_ask(self, string id):
- *         self.order_book.removeAsk(id)             # <<<<<<<<<<<<<<
+ *     def remove_ask(self, string id_):
+ *         self.order_book.removeAsk(id_)             # <<<<<<<<<<<<<<
  * 
- *     def __dealloc__(self):
+ *     def has_bid(self, string id_):
  */
-  __pyx_v_self->order_book->removeAsk(__pyx_v_id);
+  __pyx_v_self->order_book.removeAsk(__pyx_v_id_);
 
-  /* "orderbook/orderbook.pyx":27
- *         self.order_book.removeBid(id)
+  /* "orderbook/orderbook.pyx":29
+ *         self.order_book.removeBid(id_)
  * 
- *     def remove_ask(self, string id):             # <<<<<<<<<<<<<<
- *         self.order_book.removeAsk(id)
+ *     def remove_ask(self, string id_):             # <<<<<<<<<<<<<<
+ *         self.order_book.removeAsk(id_)
  * 
  */
 
@@ -1848,67 +1859,305 @@ static PyObject *__pyx_pf_13ghulorderbook_9OrderBook_12remove_ask(struct __pyx_o
   return __pyx_r;
 }
 
-/* "orderbook/orderbook.pyx":30
- *         self.order_book.removeAsk(id)
+/* "orderbook/orderbook.pyx":32
+ *         self.order_book.removeAsk(id_)
  * 
- *     def __dealloc__(self):             # <<<<<<<<<<<<<<
- *         del self.order_book
+ *     def has_bid(self, string id_):             # <<<<<<<<<<<<<<
+ *         return self.order_book.hasBid(id_)
+ * 
  */
 
 /* Python wrapper */
-static void __pyx_pw_13ghulorderbook_9OrderBook_15__dealloc__(PyObject *__pyx_v_self); /*proto*/
-static void __pyx_pw_13ghulorderbook_9OrderBook_15__dealloc__(PyObject *__pyx_v_self) {
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("__dealloc__ (wrapper)", 0);
-  __pyx_pf_13ghulorderbook_9OrderBook_14__dealloc__(((struct __pyx_obj_13ghulorderbook_OrderBook *)__pyx_v_self));
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-}
-
-static void __pyx_pf_13ghulorderbook_9OrderBook_14__dealloc__(struct __pyx_obj_13ghulorderbook_OrderBook *__pyx_v_self) {
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("__dealloc__", 0);
-
-  /* "orderbook/orderbook.pyx":31
- * 
- *     def __dealloc__(self):
- *         del self.order_book             # <<<<<<<<<<<<<<
- */
-  delete __pyx_v_self->order_book;
-
-  /* "orderbook/orderbook.pyx":30
- *         self.order_book.removeAsk(id)
- * 
- *     def __dealloc__(self):             # <<<<<<<<<<<<<<
- *         del self.order_book
- */
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-}
-
-/* "(tree fragment)":1
- * def __reduce_cython__(self):             # <<<<<<<<<<<<<<
- *     raise TypeError("self.order_book cannot be converted to a Python object for pickling")
- * def __setstate_cython__(self, __pyx_state):
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_13ghulorderbook_9OrderBook_17__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_13ghulorderbook_9OrderBook_16__reduce_cython__[] = "OrderBook.__reduce_cython__(self)";
-static PyObject *__pyx_pw_13ghulorderbook_9OrderBook_17__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_13ghulorderbook_9OrderBook_15has_bid(PyObject *__pyx_v_self, PyObject *__pyx_arg_id_); /*proto*/
+static char __pyx_doc_13ghulorderbook_9OrderBook_14has_bid[] = "OrderBook.has_bid(self, string id_)";
+static PyObject *__pyx_pw_13ghulorderbook_9OrderBook_15has_bid(PyObject *__pyx_v_self, PyObject *__pyx_arg_id_) {
+  std::string __pyx_v_id_;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("__reduce_cython__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_13ghulorderbook_9OrderBook_16__reduce_cython__(((struct __pyx_obj_13ghulorderbook_OrderBook *)__pyx_v_self));
+  __Pyx_RefNannySetupContext("has_bid (wrapper)", 0);
+  assert(__pyx_arg_id_); {
+    __pyx_v_id_ = __pyx_convert_string_from_py_std__in_string(__pyx_arg_id_); if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 32, __pyx_L3_error)
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L3_error:;
+  __Pyx_AddTraceback("ghulorderbook.OrderBook.has_bid", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return NULL;
+  __pyx_L4_argument_unpacking_done:;
+  __pyx_r = __pyx_pf_13ghulorderbook_9OrderBook_14has_bid(((struct __pyx_obj_13ghulorderbook_OrderBook *)__pyx_v_self), ((std::string)__pyx_v_id_));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_13ghulorderbook_9OrderBook_16__reduce_cython__(CYTHON_UNUSED struct __pyx_obj_13ghulorderbook_OrderBook *__pyx_v_self) {
+static PyObject *__pyx_pf_13ghulorderbook_9OrderBook_14has_bid(struct __pyx_obj_13ghulorderbook_OrderBook *__pyx_v_self, std::string __pyx_v_id_) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("has_bid", 0);
+
+  /* "orderbook/orderbook.pyx":33
+ * 
+ *     def has_bid(self, string id_):
+ *         return self.order_book.hasBid(id_)             # <<<<<<<<<<<<<<
+ * 
+ *     def has_ask(self, string id_):
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = __Pyx_PyBool_FromLong(__pyx_v_self->order_book.hasBid(__pyx_v_id_)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 33, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "orderbook/orderbook.pyx":32
+ *         self.order_book.removeAsk(id_)
+ * 
+ *     def has_bid(self, string id_):             # <<<<<<<<<<<<<<
+ *         return self.order_book.hasBid(id_)
+ * 
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("ghulorderbook.OrderBook.has_bid", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "orderbook/orderbook.pyx":35
+ *         return self.order_book.hasBid(id_)
+ * 
+ *     def has_ask(self, string id_):             # <<<<<<<<<<<<<<
+ *         return self.order_book.hasAsk(id_)
+ * 
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_13ghulorderbook_9OrderBook_17has_ask(PyObject *__pyx_v_self, PyObject *__pyx_arg_id_); /*proto*/
+static char __pyx_doc_13ghulorderbook_9OrderBook_16has_ask[] = "OrderBook.has_ask(self, string id_)";
+static PyObject *__pyx_pw_13ghulorderbook_9OrderBook_17has_ask(PyObject *__pyx_v_self, PyObject *__pyx_arg_id_) {
+  std::string __pyx_v_id_;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("has_ask (wrapper)", 0);
+  assert(__pyx_arg_id_); {
+    __pyx_v_id_ = __pyx_convert_string_from_py_std__in_string(__pyx_arg_id_); if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 35, __pyx_L3_error)
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L3_error:;
+  __Pyx_AddTraceback("ghulorderbook.OrderBook.has_ask", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return NULL;
+  __pyx_L4_argument_unpacking_done:;
+  __pyx_r = __pyx_pf_13ghulorderbook_9OrderBook_16has_ask(((struct __pyx_obj_13ghulorderbook_OrderBook *)__pyx_v_self), ((std::string)__pyx_v_id_));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_13ghulorderbook_9OrderBook_16has_ask(struct __pyx_obj_13ghulorderbook_OrderBook *__pyx_v_self, std::string __pyx_v_id_) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("has_ask", 0);
+
+  /* "orderbook/orderbook.pyx":36
+ * 
+ *     def has_ask(self, string id_):
+ *         return self.order_book.hasAsk(id_)             # <<<<<<<<<<<<<<
+ * 
+ *     def get_highest_bid(self):
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = __Pyx_PyBool_FromLong(__pyx_v_self->order_book.hasAsk(__pyx_v_id_)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 36, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "orderbook/orderbook.pyx":35
+ *         return self.order_book.hasBid(id_)
+ * 
+ *     def has_ask(self, string id_):             # <<<<<<<<<<<<<<
+ *         return self.order_book.hasAsk(id_)
+ * 
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("ghulorderbook.OrderBook.has_ask", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "orderbook/orderbook.pyx":38
+ *         return self.order_book.hasAsk(id_)
+ * 
+ *     def get_highest_bid(self):             # <<<<<<<<<<<<<<
+ *         return self.order_book.getHighestBid()
+ * 
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_13ghulorderbook_9OrderBook_19get_highest_bid(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_13ghulorderbook_9OrderBook_18get_highest_bid[] = "OrderBook.get_highest_bid(self)";
+static PyObject *__pyx_pw_13ghulorderbook_9OrderBook_19get_highest_bid(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("get_highest_bid (wrapper)", 0);
+  __pyx_r = __pyx_pf_13ghulorderbook_9OrderBook_18get_highest_bid(((struct __pyx_obj_13ghulorderbook_OrderBook *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_13ghulorderbook_9OrderBook_18get_highest_bid(struct __pyx_obj_13ghulorderbook_OrderBook *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("get_highest_bid", 0);
+
+  /* "orderbook/orderbook.pyx":39
+ * 
+ *     def get_highest_bid(self):
+ *         return self.order_book.getHighestBid()             # <<<<<<<<<<<<<<
+ * 
+ *     def get_lowest_ask(self):
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->order_book.getHighestBid()); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 39, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "orderbook/orderbook.pyx":38
+ *         return self.order_book.hasAsk(id_)
+ * 
+ *     def get_highest_bid(self):             # <<<<<<<<<<<<<<
+ *         return self.order_book.getHighestBid()
+ * 
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("ghulorderbook.OrderBook.get_highest_bid", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "orderbook/orderbook.pyx":41
+ *         return self.order_book.getHighestBid()
+ * 
+ *     def get_lowest_ask(self):             # <<<<<<<<<<<<<<
+ *         return self.order_book.getLowestAsk()
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_13ghulorderbook_9OrderBook_21get_lowest_ask(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_13ghulorderbook_9OrderBook_20get_lowest_ask[] = "OrderBook.get_lowest_ask(self)";
+static PyObject *__pyx_pw_13ghulorderbook_9OrderBook_21get_lowest_ask(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("get_lowest_ask (wrapper)", 0);
+  __pyx_r = __pyx_pf_13ghulorderbook_9OrderBook_20get_lowest_ask(((struct __pyx_obj_13ghulorderbook_OrderBook *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_13ghulorderbook_9OrderBook_20get_lowest_ask(struct __pyx_obj_13ghulorderbook_OrderBook *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("get_lowest_ask", 0);
+
+  /* "orderbook/orderbook.pyx":42
+ * 
+ *     def get_lowest_ask(self):
+ *         return self.order_book.getLowestAsk()             # <<<<<<<<<<<<<<
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->order_book.getLowestAsk()); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 42, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "orderbook/orderbook.pyx":41
+ *         return self.order_book.getHighestBid()
+ * 
+ *     def get_lowest_ask(self):             # <<<<<<<<<<<<<<
+ *         return self.order_book.getLowestAsk()
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("ghulorderbook.OrderBook.get_lowest_ask", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "(tree fragment)":1
+ * def __reduce_cython__(self):             # <<<<<<<<<<<<<<
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
+ * def __setstate_cython__(self, __pyx_state):
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_13ghulorderbook_9OrderBook_23__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_13ghulorderbook_9OrderBook_22__reduce_cython__[] = "OrderBook.__reduce_cython__(self)";
+static PyObject *__pyx_pw_13ghulorderbook_9OrderBook_23__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__reduce_cython__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_13ghulorderbook_9OrderBook_22__reduce_cython__(((struct __pyx_obj_13ghulorderbook_OrderBook *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_13ghulorderbook_9OrderBook_22__reduce_cython__(CYTHON_UNUSED struct __pyx_obj_13ghulorderbook_OrderBook *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -1919,9 +2168,9 @@ static PyObject *__pyx_pf_13ghulorderbook_9OrderBook_16__reduce_cython__(CYTHON_
 
   /* "(tree fragment)":2
  * def __reduce_cython__(self):
- *     raise TypeError("self.order_book cannot be converted to a Python object for pickling")             # <<<<<<<<<<<<<<
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")             # <<<<<<<<<<<<<<
  * def __setstate_cython__(self, __pyx_state):
- *     raise TypeError("self.order_book cannot be converted to a Python object for pickling")
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
  */
   __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple_, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 2, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
@@ -1931,7 +2180,7 @@ static PyObject *__pyx_pf_13ghulorderbook_9OrderBook_16__reduce_cython__(CYTHON_
 
   /* "(tree fragment)":1
  * def __reduce_cython__(self):             # <<<<<<<<<<<<<<
- *     raise TypeError("self.order_book cannot be converted to a Python object for pickling")
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
  * def __setstate_cython__(self, __pyx_state):
  */
 
@@ -1947,26 +2196,26 @@ static PyObject *__pyx_pf_13ghulorderbook_9OrderBook_16__reduce_cython__(CYTHON_
 
 /* "(tree fragment)":3
  * def __reduce_cython__(self):
- *     raise TypeError("self.order_book cannot be converted to a Python object for pickling")
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
  * def __setstate_cython__(self, __pyx_state):             # <<<<<<<<<<<<<<
- *     raise TypeError("self.order_book cannot be converted to a Python object for pickling")
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_13ghulorderbook_9OrderBook_19__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state); /*proto*/
-static char __pyx_doc_13ghulorderbook_9OrderBook_18__setstate_cython__[] = "OrderBook.__setstate_cython__(self, __pyx_state)";
-static PyObject *__pyx_pw_13ghulorderbook_9OrderBook_19__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
+static PyObject *__pyx_pw_13ghulorderbook_9OrderBook_25__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state); /*proto*/
+static char __pyx_doc_13ghulorderbook_9OrderBook_24__setstate_cython__[] = "OrderBook.__setstate_cython__(self, __pyx_state)";
+static PyObject *__pyx_pw_13ghulorderbook_9OrderBook_25__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__setstate_cython__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_13ghulorderbook_9OrderBook_18__setstate_cython__(((struct __pyx_obj_13ghulorderbook_OrderBook *)__pyx_v_self), ((PyObject *)__pyx_v___pyx_state));
+  __pyx_r = __pyx_pf_13ghulorderbook_9OrderBook_24__setstate_cython__(((struct __pyx_obj_13ghulorderbook_OrderBook *)__pyx_v_self), ((PyObject *)__pyx_v___pyx_state));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_13ghulorderbook_9OrderBook_18__setstate_cython__(CYTHON_UNUSED struct __pyx_obj_13ghulorderbook_OrderBook *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v___pyx_state) {
+static PyObject *__pyx_pf_13ghulorderbook_9OrderBook_24__setstate_cython__(CYTHON_UNUSED struct __pyx_obj_13ghulorderbook_OrderBook *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v___pyx_state) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -1976,9 +2225,9 @@ static PyObject *__pyx_pf_13ghulorderbook_9OrderBook_18__setstate_cython__(CYTHO
   __Pyx_RefNannySetupContext("__setstate_cython__", 0);
 
   /* "(tree fragment)":4
- *     raise TypeError("self.order_book cannot be converted to a Python object for pickling")
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
  * def __setstate_cython__(self, __pyx_state):
- *     raise TypeError("self.order_book cannot be converted to a Python object for pickling")             # <<<<<<<<<<<<<<
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")             # <<<<<<<<<<<<<<
  */
   __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
@@ -1988,9 +2237,9 @@ static PyObject *__pyx_pf_13ghulorderbook_9OrderBook_18__setstate_cython__(CYTHO
 
   /* "(tree fragment)":3
  * def __reduce_cython__(self):
- *     raise TypeError("self.order_book cannot be converted to a Python object for pickling")
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
  * def __setstate_cython__(self, __pyx_state):             # <<<<<<<<<<<<<<
- *     raise TypeError("self.order_book cannot be converted to a Python object for pickling")
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
  */
 
   /* function exit code */
@@ -2069,6 +2318,7 @@ static std::string __pyx_convert_string_from_py_std__in_string(PyObject *__pyx_v
 }
 
 static PyObject *__pyx_tp_new_13ghulorderbook_OrderBook(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
+  struct __pyx_obj_13ghulorderbook_OrderBook *p;
   PyObject *o;
   if (likely((t->tp_flags & Py_TPFLAGS_IS_ABSTRACT) == 0)) {
     o = (*t->tp_alloc)(t, 0);
@@ -2076,36 +2326,39 @@ static PyObject *__pyx_tp_new_13ghulorderbook_OrderBook(PyTypeObject *t, CYTHON_
     o = (PyObject *) PyBaseObject_Type.tp_new(t, __pyx_empty_tuple, 0);
   }
   if (unlikely(!o)) return 0;
+  p = ((struct __pyx_obj_13ghulorderbook_OrderBook *)o);
+  new((void*)&(p->order_book)) OrderBook();
+  if (unlikely(__pyx_pw_13ghulorderbook_9OrderBook_1__cinit__(o, __pyx_empty_tuple, NULL) < 0)) goto bad;
   return o;
+  bad:
+  Py_DECREF(o); o = 0;
+  return NULL;
 }
 
 static void __pyx_tp_dealloc_13ghulorderbook_OrderBook(PyObject *o) {
+  struct __pyx_obj_13ghulorderbook_OrderBook *p = (struct __pyx_obj_13ghulorderbook_OrderBook *)o;
   #if CYTHON_USE_TP_FINALIZE
   if (unlikely(PyType_HasFeature(Py_TYPE(o), Py_TPFLAGS_HAVE_FINALIZE) && Py_TYPE(o)->tp_finalize) && (!PyType_IS_GC(Py_TYPE(o)) || !_PyGC_FINALIZED(o))) {
     if (PyObject_CallFinalizerFromDealloc(o)) return;
   }
   #endif
-  {
-    PyObject *etype, *eval, *etb;
-    PyErr_Fetch(&etype, &eval, &etb);
-    __Pyx_SET_REFCNT(o, Py_REFCNT(o) + 1);
-    __pyx_pw_13ghulorderbook_9OrderBook_15__dealloc__(o);
-    __Pyx_SET_REFCNT(o, Py_REFCNT(o) - 1);
-    PyErr_Restore(etype, eval, etb);
-  }
+  __Pyx_call_destructor(p->order_book);
   (*Py_TYPE(o)->tp_free)(o);
 }
 
 static PyMethodDef __pyx_methods_13ghulorderbook_OrderBook[] = {
-  {"__cinit", (PyCFunction)__pyx_pw_13ghulorderbook_9OrderBook_1__cinit, METH_NOARGS, __pyx_doc_13ghulorderbook_9OrderBook___cinit},
   {"add_bid", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_13ghulorderbook_9OrderBook_3add_bid, METH_VARARGS|METH_KEYWORDS, __pyx_doc_13ghulorderbook_9OrderBook_2add_bid},
   {"add_ask", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_13ghulorderbook_9OrderBook_5add_ask, METH_VARARGS|METH_KEYWORDS, __pyx_doc_13ghulorderbook_9OrderBook_4add_ask},
   {"set_bid_amount", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_13ghulorderbook_9OrderBook_7set_bid_amount, METH_VARARGS|METH_KEYWORDS, __pyx_doc_13ghulorderbook_9OrderBook_6set_bid_amount},
   {"set_ask_amount", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_13ghulorderbook_9OrderBook_9set_ask_amount, METH_VARARGS|METH_KEYWORDS, __pyx_doc_13ghulorderbook_9OrderBook_8set_ask_amount},
   {"remove_bid", (PyCFunction)__pyx_pw_13ghulorderbook_9OrderBook_11remove_bid, METH_O, __pyx_doc_13ghulorderbook_9OrderBook_10remove_bid},
   {"remove_ask", (PyCFunction)__pyx_pw_13ghulorderbook_9OrderBook_13remove_ask, METH_O, __pyx_doc_13ghulorderbook_9OrderBook_12remove_ask},
-  {"__reduce_cython__", (PyCFunction)__pyx_pw_13ghulorderbook_9OrderBook_17__reduce_cython__, METH_NOARGS, __pyx_doc_13ghulorderbook_9OrderBook_16__reduce_cython__},
-  {"__setstate_cython__", (PyCFunction)__pyx_pw_13ghulorderbook_9OrderBook_19__setstate_cython__, METH_O, __pyx_doc_13ghulorderbook_9OrderBook_18__setstate_cython__},
+  {"has_bid", (PyCFunction)__pyx_pw_13ghulorderbook_9OrderBook_15has_bid, METH_O, __pyx_doc_13ghulorderbook_9OrderBook_14has_bid},
+  {"has_ask", (PyCFunction)__pyx_pw_13ghulorderbook_9OrderBook_17has_ask, METH_O, __pyx_doc_13ghulorderbook_9OrderBook_16has_ask},
+  {"get_highest_bid", (PyCFunction)__pyx_pw_13ghulorderbook_9OrderBook_19get_highest_bid, METH_NOARGS, __pyx_doc_13ghulorderbook_9OrderBook_18get_highest_bid},
+  {"get_lowest_ask", (PyCFunction)__pyx_pw_13ghulorderbook_9OrderBook_21get_lowest_ask, METH_NOARGS, __pyx_doc_13ghulorderbook_9OrderBook_20get_lowest_ask},
+  {"__reduce_cython__", (PyCFunction)__pyx_pw_13ghulorderbook_9OrderBook_23__reduce_cython__, METH_NOARGS, __pyx_doc_13ghulorderbook_9OrderBook_22__reduce_cython__},
+  {"__setstate_cython__", (PyCFunction)__pyx_pw_13ghulorderbook_9OrderBook_25__setstate_cython__, METH_O, __pyx_doc_13ghulorderbook_9OrderBook_24__setstate_cython__},
   {0, 0, 0, 0}
 };
 
@@ -2232,11 +2485,11 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_id, __pyx_k_id, sizeof(__pyx_k_id), 0, 0, 1, 1},
   {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
   {&__pyx_n_s_name, __pyx_k_name, sizeof(__pyx_k_name), 0, 0, 1, 1},
+  {&__pyx_kp_s_no_default___reduce___due_to_non, __pyx_k_no_default___reduce___due_to_non, sizeof(__pyx_k_no_default___reduce___due_to_non), 0, 0, 1, 0},
   {&__pyx_n_s_price, __pyx_k_price, sizeof(__pyx_k_price), 0, 0, 1, 1},
   {&__pyx_n_s_reduce, __pyx_k_reduce, sizeof(__pyx_k_reduce), 0, 0, 1, 1},
   {&__pyx_n_s_reduce_cython, __pyx_k_reduce_cython, sizeof(__pyx_k_reduce_cython), 0, 0, 1, 1},
   {&__pyx_n_s_reduce_ex, __pyx_k_reduce_ex, sizeof(__pyx_k_reduce_ex), 0, 0, 1, 1},
-  {&__pyx_kp_s_self_order_book_cannot_be_conver, __pyx_k_self_order_book_cannot_be_conver, sizeof(__pyx_k_self_order_book_cannot_be_conver), 0, 0, 1, 0},
   {&__pyx_n_s_setstate, __pyx_k_setstate, sizeof(__pyx_k_setstate), 0, 0, 1, 1},
   {&__pyx_n_s_setstate_cython, __pyx_k_setstate_cython, sizeof(__pyx_k_setstate_cython), 0, 0, 1, 1},
   {&__pyx_n_s_test, __pyx_k_test, sizeof(__pyx_k_test), 0, 0, 1, 1},
@@ -2255,20 +2508,20 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
 
   /* "(tree fragment)":2
  * def __reduce_cython__(self):
- *     raise TypeError("self.order_book cannot be converted to a Python object for pickling")             # <<<<<<<<<<<<<<
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")             # <<<<<<<<<<<<<<
  * def __setstate_cython__(self, __pyx_state):
- *     raise TypeError("self.order_book cannot be converted to a Python object for pickling")
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
  */
-  __pyx_tuple_ = PyTuple_Pack(1, __pyx_kp_s_self_order_book_cannot_be_conver); if (unlikely(!__pyx_tuple_)) __PYX_ERR(0, 2, __pyx_L1_error)
+  __pyx_tuple_ = PyTuple_Pack(1, __pyx_kp_s_no_default___reduce___due_to_non); if (unlikely(!__pyx_tuple_)) __PYX_ERR(0, 2, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple_);
   __Pyx_GIVEREF(__pyx_tuple_);
 
   /* "(tree fragment)":4
- *     raise TypeError("self.order_book cannot be converted to a Python object for pickling")
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
  * def __setstate_cython__(self, __pyx_state):
- *     raise TypeError("self.order_book cannot be converted to a Python object for pickling")             # <<<<<<<<<<<<<<
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")             # <<<<<<<<<<<<<<
  */
-  __pyx_tuple__2 = PyTuple_Pack(1, __pyx_kp_s_self_order_book_cannot_be_conver); if (unlikely(!__pyx_tuple__2)) __PYX_ERR(0, 4, __pyx_L1_error)
+  __pyx_tuple__2 = PyTuple_Pack(1, __pyx_kp_s_no_default___reduce___due_to_non); if (unlikely(!__pyx_tuple__2)) __PYX_ERR(0, 4, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__2);
   __Pyx_GIVEREF(__pyx_tuple__2);
   __Pyx_RefNannyFinishContext();
@@ -2324,15 +2577,15 @@ static int __Pyx_modinit_type_init_code(void) {
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__Pyx_modinit_type_init_code", 0);
   /*--- Type init code ---*/
-  if (PyType_Ready(&__pyx_type_13ghulorderbook_OrderBook) < 0) __PYX_ERR(1, 6, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_13ghulorderbook_OrderBook) < 0) __PYX_ERR(1, 8, __pyx_L1_error)
   #if PY_VERSION_HEX < 0x030800B1
   __pyx_type_13ghulorderbook_OrderBook.tp_print = 0;
   #endif
   if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_13ghulorderbook_OrderBook.tp_dictoffset && __pyx_type_13ghulorderbook_OrderBook.tp_getattro == PyObject_GenericGetAttr)) {
     __pyx_type_13ghulorderbook_OrderBook.tp_getattro = __Pyx_PyObject_GenericGetAttr;
   }
-  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_OrderBook, (PyObject *)&__pyx_type_13ghulorderbook_OrderBook) < 0) __PYX_ERR(1, 6, __pyx_L1_error)
-  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_13ghulorderbook_OrderBook) < 0) __PYX_ERR(1, 6, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_OrderBook, (PyObject *)&__pyx_type_13ghulorderbook_OrderBook) < 0) __PYX_ERR(1, 8, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_13ghulorderbook_OrderBook) < 0) __PYX_ERR(1, 8, __pyx_L1_error)
   __pyx_ptype_13ghulorderbook_OrderBook = &__pyx_type_13ghulorderbook_OrderBook;
   __Pyx_RefNannyFinishContext();
   return 0;
@@ -2568,9 +2821,9 @@ if (!__Pyx_RefNanny) {
   #endif
 
   /* "orderbook/orderbook.pyx":1
- * from libcpp.string cimport string             # <<<<<<<<<<<<<<
+ * # cython: c_string_type=unicode, c_string_encoding=default             # <<<<<<<<<<<<<<
  * 
- * from orderbook.orderbook cimport OrderBook as CppOrderBook
+ * from libcpp.string cimport string
  */
   __pyx_t_1 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 1, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
@@ -2679,6 +2932,46 @@ static void __Pyx_RaiseArgtupleInvalid(
                  "%.200s() takes %.8s %" CYTHON_FORMAT_SSIZE_T "d positional argument%.1s (%" CYTHON_FORMAT_SSIZE_T "d given)",
                  func_name, more_or_less, num_expected,
                  (num_expected == 1) ? "" : "s", num_found);
+}
+
+/* KeywordStringCheck */
+static int __Pyx_CheckKeywordStrings(
+    PyObject *kwdict,
+    const char* function_name,
+    int kw_allowed)
+{
+    PyObject* key = 0;
+    Py_ssize_t pos = 0;
+#if CYTHON_COMPILING_IN_PYPY
+    if (!kw_allowed && PyDict_Next(kwdict, &pos, &key, 0))
+        goto invalid_keyword;
+    return 1;
+#else
+    while (PyDict_Next(kwdict, &pos, &key, 0)) {
+        #if PY_MAJOR_VERSION < 3
+        if (unlikely(!PyString_Check(key)))
+        #endif
+            if (unlikely(!PyUnicode_Check(key)))
+                goto invalid_keyword_type;
+    }
+    if ((!kw_allowed) && unlikely(key))
+        goto invalid_keyword;
+    return 1;
+invalid_keyword_type:
+    PyErr_Format(PyExc_TypeError,
+        "%.200s() keywords must be strings", function_name);
+    return 0;
+#endif
+invalid_keyword:
+    PyErr_Format(PyExc_TypeError,
+    #if PY_MAJOR_VERSION < 3
+        "%.200s() got an unexpected keyword argument '%.200s'",
+        function_name, PyString_AsString(key));
+    #else
+        "%s() got an unexpected keyword argument '%U'",
+        function_name, key);
+    #endif
+    return 0;
 }
 
 /* RaiseDoubleKeywords */

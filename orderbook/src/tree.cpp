@@ -258,7 +258,7 @@ void Tree::updateBalance(Limit* limit) {
     limit->height = height;
 };
 
-void Tree::addOrder(string id, double price, double amount) {
+void Tree::addOrder(string id, float price, float amount) {
     Order *order = new Order(id, price, amount);
     Limit *limit;
 
@@ -275,13 +275,13 @@ void Tree::addOrder(string id, double price, double amount) {
     this->insertLimit(limit);
 };
 
-void Tree::setOrderAmount(string id, double amount) {
+void Tree::setOrderAmount(string id, float amount) {
     Order *order = this->orders[id];
 
     order->setAmount(amount);
 };
 
-void Tree::addOrderAmount(string id, double amount) {
+void Tree::addOrderAmount(string id, float amount) {
     Order *order = this->orders[id];
 
     order->addAmount(amount);
@@ -296,6 +296,7 @@ void Tree::removeOrder(string id) {
         this->orders.erase(id);
 
         limit->removeOrder(order);
+        delete order;
 
         if (!limit->hasOrders()) {
             this->removeLimit(limit);
@@ -303,7 +304,15 @@ void Tree::removeOrder(string id) {
     }
 };
 
-Limit* Tree::minLimit() {
+bool Tree::hasOrder(string id) {
+    auto it = orders.find(id);
+    if (it != orders.end()) {
+        return  true;
+    }
+    return false;
+}
+
+Limit* Tree::getMinLimit() {
     Limit *limit = this->root;
 
     if (limit) {
@@ -315,7 +324,7 @@ Limit* Tree::minLimit() {
     return limit;
 };
 
-Limit* Tree::maxLimit() {
+Limit* Tree::getMaxLimit() {
     Limit *limit = this->root;
 
     if (limit) {
@@ -348,3 +357,19 @@ vector<Limit*> Tree::inorder() {
 
     return limits;
 };
+
+Tree::~Tree() {
+    while (not this->orders.empty() )
+    {
+        auto const it = this->orders.begin();
+        delete it->second;
+        this->orders.erase(it);
+    }
+
+    while (not this->limits.empty() )
+    {
+        auto const it = this->limits.begin();
+        delete it->second;
+        this->limits.erase(it);
+    }
+}

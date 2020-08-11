@@ -1,31 +1,52 @@
 #include "orderbook.h"
 
 
-OrderBook::OrderBook() {
-    this->asks = new Tree();
-    this->bids = new Tree();
-}
-
-void OrderBook::addBid(string id, double price, double amount) {
-    this->bids->addOrder(id, price, amount);
+void OrderBook::addBid(string id, float price, float amount) {
+    bids.addOrder(id, price, amount);
 };
 
-void OrderBook::addAsk(string id, double price, double amount) {
-    this->asks->addOrder(id, price, amount);
+void OrderBook::addAsk(string id, float price, float amount) {
+    asks.addOrder(id, price, amount);
 };
 
-void OrderBook::setBidAmount(string id, double amount) {
-    this->bids->setOrderAmount(id, amount);
+void OrderBook::setBidAmount(string id, float amount) {
+    bids.setOrderAmount(id, amount);
 };
 
-void OrderBook::setAskAmount(string id, double amount) {
-    this->asks->setOrderAmount(id, amount);
+void OrderBook::setAskAmount(string id, float amount) {
+    asks.setOrderAmount(id, amount);
 };
 
 void OrderBook::removeBid(string id) {
-    this->bids->removeOrder(id);
+    bids.removeOrder(id);
 };
 
 void OrderBook::removeAsk(string id) {
-    this->asks->removeOrder(id);
+    asks.removeOrder(id);
 };
+
+bool OrderBook::hasBid(string id) {
+    return bids.hasOrder(id);
+}
+
+bool OrderBook::hasAsk(string id) {
+    return asks.hasOrder(id);
+}
+
+float OrderBook::getHighestBid() {
+    Limit *limit = bids.getMaxLimit();
+
+    if (limit) {
+        return limit->getLevel();
+    }
+    return 0;
+}
+
+float OrderBook::getLowestAsk() {
+    Limit *limit = asks.getMinLimit();
+
+    if (limit) {
+        return limit->getLevel();
+    }
+    return 0;
+}

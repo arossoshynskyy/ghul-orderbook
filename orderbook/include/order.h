@@ -7,18 +7,18 @@ struct Limit;
 
 class Order {
     string id;
-    double price;
-    double amount;
+    float price;
+    float amount;
 
     public:
         Order *next;
         Order *prev;
         Limit *parent;
 
-        Order(string, double, double);
+        Order(string, float, float);
         string getId();
-        double getPrice();
-        double getAmount();
-        void setAmount(double);
-        void addAmount(double);
+        float getPrice();
+        float getAmount();
+        void setAmount(float);
+        void addAmount(float);
 };

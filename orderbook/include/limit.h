@@ -6,8 +6,8 @@
 using std::string;
 
 class Limit {
-    double level;
-    double amount;
+    float level;
+    float amount;
 
     public:
         unsigned short int height;
@@ -21,8 +21,8 @@ class Limit {
         Order *tail;
 
         explicit Limit(Order*);
-        double getLevel();
-        double getAmount();
+        float getLevel();
+        float getAmount();
         void addOrder(Order*);
         void removeOrder(Order*);
         bool hasOrders();

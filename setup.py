@@ -24,7 +24,7 @@ if use_cython:
             include_dirs=["orderbook/include/"],
             language="c++",
         ),
-        compiler_directives={"embedsignature": True},
+        compiler_directives={"embedsignature": True, "language_level": "3"},
     )
 else:
     ext_modules = [

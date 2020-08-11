@@ -3,18 +3,25 @@
 
 
 Limit::Limit(Order *order) {
-    this->height = 0;
-    this->balance = 0;
-    this->level = order->getPrice();
-    this->amount = order->getAmount();
+    level = order->getPrice();
+    amount = 0;
+    height = 0;
+    balance = 0;
+    parent = nullptr;
+    left = nullptr;
+    right = nullptr;
+    head = nullptr;
+    tail = nullptr;
+
+    this->addOrder(order);
 };
 
-double Limit::getLevel() {
-    return this->level;
+float Limit::getLevel() {
+    return level;
 };
 
-double Limit::getAmount() {
-    return this->amount;
+float Limit::getAmount() {
+    return amount;
 };
 
 void Limit::addOrder(Order *order) {
@@ -29,7 +36,7 @@ void Limit::addOrder(Order *order) {
 
     this->head = order;
 
-    this->amount += order->getAmount();
+    amount += order->getAmount();
 };
 
 void Limit::removeOrder(Order *order) {
@@ -48,9 +55,7 @@ void Limit::removeOrder(Order *order) {
         this->head = next;
     }
 
-    this->amount -= order->getAmount();
-
-    delete order;
+    amount -= order->getAmount();
 };
 
 bool Limit::hasOrders() {
