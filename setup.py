@@ -52,5 +52,5 @@ setup(
     package_data={"": ["src/*", "*.pxd", "*.pyx", "*.cpp", ".h"],},
     python_requires=">=3.6",
     url="https://github.com/arossoshynskyy/ghul-orderbook",
-    version="0.0.1",
+    version="0.0.2",
 )
