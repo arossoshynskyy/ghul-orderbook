@@ -5,31 +5,35 @@ try:
     from Cython.Build import cythonize
 
     use_cython = True
+    file_ext = ".pyx"
 except ImportError:
     use_cython = False
+    file_ext = ".cpp"
+
+
+sources = [
+    "orderbook/orderbook" + file_ext,
+    "orderbook/src/orderbook.cpp",
+    "orderbook/src/tree.cpp",
+    "orderbook/src/limit.cpp",
+    "orderbook/src/order.cpp",
+]
+
+extensions = [
+    Extension(
+        "ghulorderbook",
+        sources=sources,
+        include_dirs=["orderbook/include/"],
+        language="c++",
+    )
+]
 
 if use_cython:
-    sources = [
-        "orderbook/orderbook.pyx",
-        "orderbook/src/orderbook.cpp",
-        "orderbook/src/tree.cpp",
-        "orderbook/src/limit.cpp",
-        "orderbook/src/order.cpp",
-    ]
-
     ext_modules = cythonize(
-        Extension(
-            "ghulorderbook",
-            sources=sources,
-            include_dirs=["orderbook/include/"],
-            language="c++",
-        ),
-        compiler_directives={"embedsignature": True, "language_level": "3"},
+        extensions, compiler_directives={"embedsignature": True, "language_level": "3"},
     )
 else:
-    ext_modules = [
-        Extension("ghulorderbook", sources=["orderbook/orderbook.cpp"], language="c++")
-    ]
+    ext_modules = extensions
 
 
 with open("README.md", "r") as fh:
@@ -52,5 +56,5 @@ setup(
     package_data={"": ["src/*", "*.pxd", "*.pyx", "*.cpp", ".h"],},
     python_requires=">=3.6",
     url="https://github.com/arossoshynskyy/ghul-orderbook",
-    version="0.0.3",
+    version="0.0.4",
 )
